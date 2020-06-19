@@ -1,14 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { createStore, bindActionCreators } from "redux";
-import Counter from "./counter";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import App from "./components/app";
+// import Counter from "./components/counter";
 import reducer from "./reducer";
 // import { inc, dec, rnd } from "./actions";
-import * as actions from "./actions";
+// import * as actions from "./actions";
 
 const store = createStore(reducer);
 //dispatch написана так, чтобы работать со своим store
-const { dispatch } = store;
+// const { dispatch } = store;
 
 // const bindActionCreator = (creator, dispatch) => (...args) => {
 //   dispatch(creator(...args));
@@ -24,23 +26,23 @@ const { dispatch } = store;
 //   rnd(payload);
 // });
 
-const { inc, dec, rnd } = bindActionCreators(actions, dispatch);
+// counter={store.getState()}
+// inc={inc}
+// dec={dec}
+// rnd={() => {
+//   const value = Math.floor(Math.random() * 10);
+//   rnd(value);
+// }}
 
-const update = () => {
+// const { inc, dec, rnd } = bindActionCreators(actions, dispatch);
+
   ReactDOM.render(
-    <Counter
-      counter={store.getState()}
-      inc={inc}
-      dec={dec}
-      rnd={() => {
-        const value = Math.floor(Math.random() * 10);
-        rnd(value);
-      }}
-    />,
+    <Provider store={store}>
+      <App />
+    </Provider>,
     document.getElementById("root")
   );
-};
 
-update();
+// update();
 
-store.subscribe(update);
+// store.subscribe(update);
